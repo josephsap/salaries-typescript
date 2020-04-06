@@ -3,9 +3,13 @@ import React from 'react';
 // import loadingStyles from '../styles/loading.module.scss';
 
 // render the job descriptions on the bottom
-import { DescriptionsArray } from './App';
+import { Descriptions } from './interfaces/interfaces';
 
-const JobDetails: React.FC<DescriptionsArray> = () => {
+interface Props {
+  descriptions: Descriptions[];
+}
+
+const JobDetails: React.FC<Props> = ({ descriptions }) => {
   // const jobDetailItems = props.sortedJobs.map((jobItem: { jobLevel: string; jobDescription: string }) => {
   //   return (<li key={jobItem.jobLevel}>
   //     <h3>{jobItem.jobLevel}</h3>
@@ -13,6 +17,8 @@ const JobDetails: React.FC<DescriptionsArray> = () => {
   //   </li>);
   // },
   // );
+
+  console.log(descriptions)
 
   return (
     <ul>
