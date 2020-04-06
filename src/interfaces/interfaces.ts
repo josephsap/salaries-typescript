@@ -19,6 +19,13 @@ export interface Descriptions {
   slug: string;
 }
 
-export interface SortedJobsInterface {
-  sortedJobs: [Descriptions];
-}
+// export interface DescriptionsInterface {
+//   descriptionsArray: [{
+//     jobDescription: string;
+//     jobLevel: string;
+//     jobTitle: string;
+//     salaryHigh: string;
+//     salaryLow: string;
+//     slug: string;
+//   }];
+// }

@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios, { AxiosPromise } from 'axios';
 import './App.css';
-import { Titles, Locations, Descriptions, SortedJobsInterface } from './interfaces/interfaces';
+import { Titles, Locations, Descriptions } from './interfaces/interfaces';
 import Cars from './Cars';
 import JobDetails from './jobDetails';
 
-type DescriptionsArray = Descriptions[];
-
-type Props = {
-  descriptions: DescriptionsArray;
+export interface DescriptionsArray {
+  descArr: Descriptions[];
 }
 
-const App: React.FunctionComponent<Props> = () => {
+const App: React.FC = () => {
   const [titles, setTitles] = useState<Titles[]>([]);
   const [locations, setLocations] = useState<Locations[]>([]);
-  const [descriptions, setDescriptions] = useState<Descriptions[]>([]);
+  const [descriptions, setDescriptions] = useState<DescriptionsArray[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   // const [sortedJobs, setSortedJobs] = useState<any>([]);
 
@@ -40,10 +38,10 @@ const App: React.FunctionComponent<Props> = () => {
       })
     );
 
-    if (!loading) {
-      const sortedBySalaryLow: DescriptionsArray = descriptions.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
-      setDescriptions(sortedBySalaryLow);
-    }
+    // if (!loading) {
+    //   const sortedBySalaryLow = descriptions.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
+    //   setDescriptions(sortedBySalaryLow);
+    // }
   }, [loading, descriptions]);
 
   return (
@@ -55,9 +53,11 @@ const App: React.FunctionComponent<Props> = () => {
           model="Three"
           year={2012}
         />
-        <JobDetails
-          descriptions={descriptions}
-        />
+        {!loading &&
+          <JobDetails
+            descArr={descriptions}
+          />
+        }
       </header>
     </div>
   );
