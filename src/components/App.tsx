@@ -41,8 +41,9 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const handleLocationChange = (e) => {
-    setSelectedLocationValue(e.target.value);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const handleLocationChange = (e: React.FormEvent<HTMLSelectElement>) => {
+    setSelectedLocationValue(e.currentTarget.value);
   }
 
   return (

@@ -5,7 +5,7 @@ import { Locations } from '../interfaces/interfaces';
 
 interface Props {
   locations: Locations[];
-  onLocationChange: () => any;
+  onLocationChange(event: React.FormEvent<HTMLSelectElement>): void;
   selectedLocationValue: string;
 }
 
