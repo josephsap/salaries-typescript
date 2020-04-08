@@ -18,14 +18,3 @@ export interface Descriptions {
   salaryLow: string;
   slug: string;
 }
-
-// export interface DescriptionsInterface {
-//   descriptionsArray: [{
-//     jobDescription: string;
-//     jobLevel: string;
-//     jobTitle: string;
-//     salaryHigh: string;
-//     salaryLow: string;
-//     slug: string;
-//   }];
-// }

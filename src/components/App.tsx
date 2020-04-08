@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/App.css';
+import styles from '../styles/app.module.scss';
 import { Titles, Locations, Descriptions } from '../interfaces/interfaces';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import JobDetails from './jobDetails';
-import LocationSelect from './locationSelect';
+import JobSelectForm from './JobSelectForm';
+import SVGS from './svgs';
 
 
 const App: React.FC = () => {
@@ -12,7 +12,12 @@ const App: React.FC = () => {
   const [locations, setLocations] = useState<Locations[]>([]);
   const [descriptions, setDescriptions] = useState<Descriptions[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selectedLocationValue, setSelectedLocationValue] = useState<string>('location');
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const handleDescriptionChange = (newDescriptions: Descriptions[]) => {
+    console.log(newDescriptions, '------')
+    setDescriptions(newDescriptions);
+  };
 
   useEffect(() => {
     function getTitles(): Promise<any> {
@@ -41,19 +46,22 @@ const App: React.FC = () => {
     }
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const handleLocationChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    setSelectedLocationValue(e.currentTarget.value);
-  }
-
   return (
-    <div className="App">
-      <JobDetails descriptions={descriptions} />
-      <LocationSelect
+    <div className={styles.app}>
+      <div className="topBar">
+        <div className="container">
+          <SVGS />
+        </div>
+      </div>
+      <JobSelectForm
+        titles={titles}
         locations={locations}
-        onLocationChange={handleLocationChange}
-        selectedLocationValue={selectedLocationValue}
+        onDescChange={handleDescriptionChange}
+        descriptions={descriptions}
       />
+      <div className={`${styles.jobContainer} ${styles.contain}`}>
+        <JobDetails descriptions={descriptions} />
+      </div>
     </div>
   );
 };
