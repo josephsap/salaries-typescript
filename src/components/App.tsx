@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css';
-import { Titles, Locations, Descriptions } from './interfaces/interfaces';
-import Cars from './Cars';
+import '../styles/App.css';
+import { Titles, Locations, Descriptions } from '../interfaces/interfaces';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import JobDetails from './jobDetails';
+import LocationSelect from './locationSelect';
 
 
 const App: React.FC = () => {
@@ -11,18 +12,18 @@ const App: React.FC = () => {
   const [locations, setLocations] = useState<Locations[]>([]);
   const [descriptions, setDescriptions] = useState<Descriptions[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  // const [sortedJobs, setSortedJobs] = useState<any>([]);
+  const [selectedLocationValue, setSelectedLocationValue] = useState<string>('location');
 
   useEffect(() => {
-    function getTitles() {
+    function getTitles(): Promise<any> {
       return axios.get<Titles[]>('https://events.thesupply.com/api/salaries/titles');
     }
 
-    function getLocations() {
+    function getLocations(): Promise<any> {
       return axios.get<Locations[]>('https://events.thesupply.com/api/salaries/locations');
     }
 
-    function getDefaultDescriptions() {
+    function getDefaultDescriptions(): Promise<any> {
       return axios.get<Descriptions[]>('https://events.thesupply.com/api/salaries/digital-producer');
     }
 
@@ -34,34 +35,24 @@ const App: React.FC = () => {
       setLoading(false);
     })
 
-    // axios.all([getTitles(), getLocations(), getDefaultDescriptions()])
-    //   .then(axios.spread(function (titles, locations, descriptions) {
-    //     setTitles(titles.data);
-    //     setLocations(locations.data);
-    //     setDescriptions(descriptions.data);
-    //     setLoading(false);
-    //   })
-    // );
-
     if (!loading) {
       const sortedBySalaryLow = descriptions.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
       setDescriptions(sortedBySalaryLow);
     }
   }, []);
 
+  const handleLocationChange = (e) => {
+    setSelectedLocationValue(e.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>testing stufff</h1>
-        <Cars
-          make="Tesla"
-          model="Three"
-          year={2012}
-        />
-        {!loading &&
-          <JobDetails descriptions={descriptions} />
-        }
-      </header>
+      <JobDetails descriptions={descriptions} />
+      <LocationSelect
+        locations={locations}
+        onLocationChange={handleLocationChange}
+        selectedLocationValue={selectedLocationValue}
+      />
     </div>
   );
 };
