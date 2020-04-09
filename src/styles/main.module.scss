@@ -1,0 +1,112 @@
+@import './_variables';
+
+body {
+  font-family: "brandon-grotesque", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: $darkGray;
+  background-color: $backgroundGray;
+}
+
+:global(select) {
+  border: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  color: $gold;
+  text-transform: uppercase;
+  font-weight: 700;
+  position: relative;
+  background-color: white;
+  cursor: pointer;
+  padding: 10px 25px 10px 10px;
+}
+
+.jobDetailItems {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-top: 12px;
+  padding-left: 0;
+  position: relative;
+
+  li {
+    flex: 0 0 auto;
+    padding: 10px;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    width: 20%;
+    position: relative;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+}
+
+.moneyStackImage {
+  max-width: 50px;
+  display: block;
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  margin-left: -25px;
+}
+
+.inputSlider {
+  width: 100%;
+  display: none;
+  @media (min-width: 961px) {
+    display: block;
+  }
+}
+
+.jobItem {
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: $backgroundGrayHover;
+    transition: 0.3s ease-in-out;
+  }
+}
+
+.jobsLoading {
+  margin: 0 auto;
+  border-top: none !important;
+}
+
+.active {
+  position: relative;
+}
+
+.slider {
+  border: 2px solid $darkGray;
+  position: relative;
+}
+
+.dotWrap {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background-color: $backgroundGray;
+  border-radius: 50%;
+  top: -18px;
+  transition: 0.5s ease-in-out;
+  z-index: 3;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  background-color: $gold;
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  z-index: 1;
+}
+
+h1, h2 {
+  color: $gold;
+  font-weight: 700;
+}

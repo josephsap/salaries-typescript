@@ -1,0 +1,111 @@
+@import './variables';
+
+.salaryResultText {
+  color: $gold;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-top: 0;
+}
+
+.resultsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  opacity: 0;
+}
+
+.salaryArea {
+  margin: 60px 0 95px;
+  @media (min-width: 768px) {
+    height: 160px;
+    margin: 50px 0;
+  }
+}
+
+.numberContainer {
+  flex: 0 0 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5px;
+  @media (min-width: 768px) {
+    height: 105px;
+    min-width: 275px;
+  }
+  h3 {
+    margin-bottom: 4px;
+  }
+  p {
+    margin-top: 10px;
+  }
+}
+
+.firstNumber {
+  position: relative;
+  @media(max-width: 767px) {
+    margin-bottom: 12px !important;
+  }
+  &:after {
+    @media (max-width: 767px) {
+      content: '';
+      width: 18px;
+      height: 6px;
+      background-color: $gold;
+      position: absolute;
+      right: -26px;
+      top: 50%;
+      margin-top: -3px;
+    }
+  }
+}
+
+.salaryDash {
+  margin: 0 5px;
+  display: none;
+  @media (min-width: 768px) {
+    height: 105px;
+    display: block;
+  }
+}
+
+.rangeDesc {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.textFocusIn {
+	-webkit-animation: text-focus-in 500ms cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  animation: text-focus-in 500ms cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  animation-delay: 300ms;
+}
+
+@-webkit-keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(22px);
+            filter: blur(22px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
+@keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(22px);
+            filter: blur(22px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
+

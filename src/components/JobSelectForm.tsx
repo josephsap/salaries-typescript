@@ -10,11 +10,12 @@ interface Props {
   titles: Titles[];
   descriptions: Descriptions[];
   onDescChange: ((newDescriptions: Descriptions[]) => void);
+  onSubmitLoading: ((loadingState: boolean) => void);
 }
 
 
-const JobSelectForm: React.FC<Props> = ({ titles, locations, onDescChange }) => {
-  const [handleSubmitLoading, setHandleSubmitLoading] = useState<boolean>(false);
+const JobSelectForm: React.FC<Props> = ({ titles, locations, onDescChange, onSubmitLoading }) => {
+  // const [handleSubmitLoading, setHandleSubmitLoading] = useState<boolean>(false);
   const [selectedLocationValue, setSelectedLocationValue] = useState<string>('location');
   const [selectedPositionValue, setSelectedPositionValue] = useState<string>('position');
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -32,7 +33,7 @@ const JobSelectForm: React.FC<Props> = ({ titles, locations, onDescChange }) => 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setHandleSubmitLoading(true);
+    onSubmitLoading(true);
     axios.get(`https://events.thesupply.com/api/salaries/${selectedPositionValue}/${selectedLocationValue}`)
       .then(response => {
         onDescChange(response.data);
@@ -40,7 +41,7 @@ const JobSelectForm: React.FC<Props> = ({ titles, locations, onDescChange }) => 
         setSelectedPositionValue(selectedPositionValue);
         setSelectedLocationValue(selectedLocationValue);
         // sortJobsLowToHigh();
-        setHandleSubmitLoading(false);
+        onSubmitLoading(false);
       })
       .catch(function (err) {
         console.log(err);

@@ -6,11 +6,12 @@ import { Descriptions } from '../interfaces/interfaces';
 
 interface Props {
   descriptions: Descriptions[];
+  activeIndex: number;
 }
 
-const JobDetails: React.FC<Props> = ({ descriptions }) => {
-  const jobDetailItems = descriptions.map((jobItem: { jobLevel: string; jobDescription: string }) => {
-    return (<li key={jobItem.jobLevel} className={`${this.props.activeIndex === index ? `${styles.active} ${styles.jobItem}` : `${styles.jobItem}`}`}>
+const JobDetails: React.FC<Props> = ({ descriptions, activeIndex }) => {
+  const jobDetailItems = descriptions.map((jobItem: { jobLevel: string; jobDescription: string }, index) => {
+    return (<li key={jobItem.jobLevel} className={`${activeIndex === index ? `${styles.active} ${styles.jobItem}` : `${styles.jobItem}`}`}>
       <h3>{jobItem.jobLevel}</h3>
       <p>{jobItem.jobDescription}</p>
     </li>);
