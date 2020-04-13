@@ -22,29 +22,14 @@ const App: React.FC = () => {
   const [activeJobItem, setActiveJobItem] = useState<Descriptions>();
   const [handleSubmitLoading, setHandleSubmitLoading] = useState<boolean>(false);
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleDescriptionChange = (newDescriptions: Descriptions[]) => {
     setDescriptions(newDescriptions);
   };
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   function submitLoading(loadingState: boolean): void {
     setHandleSubmitLoading(loadingState);
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  // const handleJobLevelSelect = (jobItem: Descriptions, index: number) => {
-  //   const selectedJobItem = descriptions.filter((jobItem, index) => {
-  //     if (index === activeIndex) {
-  //       return jobItem;
-  //     }
-  //   });
-
-  //   setActiveIndex(activeIndex);
-  //   setActiveJobItem(selectedJobItem[0]);
-  // }
-
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleJobLevelSelect = (jobItem: JobItem, index: number) => {
     const clickedJobLevel = descriptions.find((selectedJob) => {
       return selectedJob.jobLevel === jobItem.jobLevel;
@@ -53,6 +38,11 @@ const App: React.FC = () => {
     setActiveIndex(index);
     setActiveJobItem(clickedJobLevel);
   }
+
+  const sortJobsLowToHigh = (descs: Descriptions[]) => {
+    const sortedBySalaryLow = descs.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
+    setDescriptions(sortedBySalaryLow);
+  };
 
   useEffect(() => {
     function getTitles(): Promise<any> {
@@ -71,14 +61,9 @@ const App: React.FC = () => {
     .then(([titles, locations, descriptions]) => {
       setTitles(titles.data);
       setLocations(locations.data);
-      setDescriptions(descriptions.data);
+      sortJobsLowToHigh(descriptions.data);
       setLoading(false);
-    })
-
-    if (!loading) {
-      const sortedBySalaryLow = descriptions.sort((a, b) => parseFloat(a.salaryLow) - parseFloat(b.salaryLow));
-      setDescriptions(sortedBySalaryLow);
-    }
+    });
   }, []);
 
   return (
@@ -94,6 +79,7 @@ const App: React.FC = () => {
         onDescChange={handleDescriptionChange}
         descriptions={descriptions}
         onSubmitLoading={submitLoading}
+        sortJobs={sortJobsLowToHigh}
       />
       <div className={`${styles.jobContainer} ${styles.contain}`}>
         <SalaryResults

@@ -17,13 +17,34 @@ interface Props {
 }
 
 const JobDetails: React.FC<Props> = ({ descriptions, activeIndex, handleJobLevelSelect }) => {
+
+  // even out the flex items
+  let flexItemWidth;
+  let itemWidthStyle;
+
+  if (descriptions.length > 0) {
+    flexItemWidth = 100 / descriptions.length;
+  }
+
+  if (window.innerWidth >= 768) {
+    itemWidthStyle = {
+      flex: '0 0' + flexItemWidth + '%',
+      width: flexItemWidth + '%'
+    };
+  } else {
+    itemWidthStyle = {
+      flex: '0 0 auto'
+    };
+  }
+
+
   const jobDetailItems = descriptions.map((jobItem: { jobLevel: string; jobDescription: string }, index) => {
     return (
       <li
         key={jobItem.jobLevel}
         className={`${activeIndex === index ? `${styles.active} ${styles.jobItem}` : `${styles.jobItem}`}`}
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         onClick={() => handleJobLevelSelect(jobItem, index)}
+        style={itemWidthStyle}
       >
         <h3>{jobItem.jobLevel}</h3>
         <p>{jobItem.jobDescription}</p>
@@ -33,7 +54,7 @@ const JobDetails: React.FC<Props> = ({ descriptions, activeIndex, handleJobLevel
   );
 
   return (
-    <ul>
+    <ul className={styles.jobDetailItems}>
       {jobDetailItems}
     </ul>
   );

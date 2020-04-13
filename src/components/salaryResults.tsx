@@ -10,7 +10,6 @@ interface Props {
   activeJob: Descriptions;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const SalaryResults = ({ handleSubmitLoading, loading, activeJob }) => {
   // const { handleSubmitLoading, activeJob, posVal, locVal, loading } = props;
   if (activeJob) {

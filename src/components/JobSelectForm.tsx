@@ -11,26 +11,23 @@ interface Props {
   descriptions: Descriptions[];
   onDescChange: ((newDescriptions: Descriptions[]) => void);
   onSubmitLoading: ((loadingState: boolean) => void);
+  sortJobs: (descs: Descriptions[]) => void;
 }
 
 
-const JobSelectForm: React.FC<Props> = ({ titles, locations, onDescChange, onSubmitLoading }) => {
-  // const [handleSubmitLoading, setHandleSubmitLoading] = useState<boolean>(false);
+const JobSelectForm: React.FC<Props> = ({ titles, locations, onDescChange, onSubmitLoading, sortJobs }) => {
   const [selectedLocationValue, setSelectedLocationValue] = useState<string>('location');
   const [selectedPositionValue, setSelectedPositionValue] = useState<string>('position');
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleLocationChange = (e: React.FormEvent<HTMLSelectElement>) => {
     setSelectedLocationValue(e.currentTarget.value);
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handlePositionChange = (e: React.FormEvent<HTMLSelectElement>) => {
     setSelectedPositionValue(e.currentTarget.value);
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmitLoading(true);
@@ -40,7 +37,7 @@ const JobSelectForm: React.FC<Props> = ({ titles, locations, onDescChange, onSub
         setActiveIndex(activeIndex || 0);
         setSelectedPositionValue(selectedPositionValue);
         setSelectedLocationValue(selectedLocationValue);
-        // sortJobsLowToHigh();
+        sortJobs(response.data);
         onSubmitLoading(false);
       })
       .catch(function (err) {
