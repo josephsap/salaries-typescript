@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [descriptions, setDescriptions] = useState<Descriptions[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [activeJobItem, setActiveJobItem] = useState<Descriptions>();
+  const [activeJobItem, setActiveJobItem] = useState<Descriptions | undefined>(undefined);
   const [handleSubmitLoading, setHandleSubmitLoading] = useState<boolean>(false);
 
   const handleDescriptionChange = (newDescriptions: Descriptions[]) => {
