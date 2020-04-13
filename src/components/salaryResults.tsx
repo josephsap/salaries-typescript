@@ -13,7 +13,6 @@ interface Props {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const SalaryResults = ({ handleSubmitLoading, loading, activeJob }) => {
   // const { handleSubmitLoading, activeJob, posVal, locVal, loading } = props;
-  console.log(handleSubmitLoading, loading, activeJob, '000')
   if (activeJob) {
     return (
       <Fade when={!handleSubmitLoading} duration={1500} wait={100}>

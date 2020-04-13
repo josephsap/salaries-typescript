@@ -7,6 +7,11 @@ import JobSelectForm from './JobSelectForm';
 import SalaryResults from './salaryResults';
 import SVGS from './svgs';
 
+type JobItem = {
+  jobLevel: string;
+  jobDescription: string;
+}
+
 
 const App: React.FC = () => {
   const [titles, setTitles] = useState<Titles[]>([]);
@@ -19,7 +24,6 @@ const App: React.FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleDescriptionChange = (newDescriptions: Descriptions[]) => {
-    console.log(newDescriptions, '------')
     setDescriptions(newDescriptions);
   };
 
@@ -28,18 +32,27 @@ const App: React.FC = () => {
     setHandleSubmitLoading(loadingState);
   }
 
-  // const handleJobLevelSelect = (activeIndex) => {
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  // const handleJobLevelSelect = (jobItem: Descriptions, index: number) => {
   //   const selectedJobItem = descriptions.filter((jobItem, index) => {
   //     if (index === activeIndex) {
   //       return jobItem;
-  //     };
+  //     }
   //   });
 
-  //   if (activeJobItem && selectedPositionValue !== 'position' && selectedLocationValue !== 'location') {
-  //     setActiveIndex(activeIndex);
-  //     setActiveJobItem(selectedJobItem[0]);
-  //   }
+  //   setActiveIndex(activeIndex);
+  //   setActiveJobItem(selectedJobItem[0]);
   // }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const handleJobLevelSelect = (jobItem: JobItem, index: number) => {
+    const clickedJobLevel = descriptions.find((selectedJob) => {
+      return selectedJob.jobLevel === jobItem.jobLevel;
+    });
+
+    setActiveIndex(index);
+    setActiveJobItem(clickedJobLevel);
+  }
 
   useEffect(() => {
     function getTitles(): Promise<any> {
@@ -93,6 +106,7 @@ const App: React.FC = () => {
         <JobDetails
           descriptions={descriptions}
           activeIndex={activeIndex}
+          handleJobLevelSelect={handleJobLevelSelect}
         />
       </div>
     </div>
