@@ -7,10 +7,10 @@ import { Descriptions } from '../interfaces/interfaces';
 interface Props {
   handleSubmitLoading: boolean;
   loading: boolean;
-  activeJob: Descriptions;
+  activeJob?: Descriptions;
 }
 
-const SalaryResults = ({ handleSubmitLoading, loading, activeJob }) => {
+const SalaryResults: React.FC<Props> = ({ handleSubmitLoading, loading, activeJob }) => {
   // const { handleSubmitLoading, activeJob, posVal, locVal, loading } = props;
   if (activeJob) {
     return (

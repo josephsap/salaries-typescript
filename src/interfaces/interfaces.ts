@@ -17,4 +17,6 @@ export interface Descriptions {
   salaryHigh: string;
   salaryLow: string;
   slug: string;
+  salaryRangeLowDesc: string;
+  salaryRangeHighDesc: string;
 }

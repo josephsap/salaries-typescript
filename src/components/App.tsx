@@ -17,10 +17,10 @@ const App: React.FC = () => {
   const [titles, setTitles] = useState<Titles[]>([]);
   const [locations, setLocations] = useState<Locations[]>([]);
   const [descriptions, setDescriptions] = useState<Descriptions[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [activeJobItem, setActiveJobItem] = useState<Descriptions | undefined>(undefined);
-  const [handleSubmitLoading, setHandleSubmitLoading] = useState<boolean>(false);
+  const [handleSubmitLoading, setHandleSubmitLoading] = useState(false);
 
   const handleDescriptionChange = (newDescriptions: Descriptions[]) => {
     setDescriptions(newDescriptions);
@@ -45,6 +45,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     function getTitles(): Promise<any> {
       return axios.get<Titles[]>('https://events.thesupply.com/api/salaries/titles');
     }
@@ -66,6 +67,8 @@ const App: React.FC = () => {
     });
   }, []);
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className={styles.app}>
       <div className="topBar">
@@ -73,28 +76,30 @@ const App: React.FC = () => {
           <SVGS />
         </div>
       </div>
-      <JobSelectForm
-        titles={titles}
-        locations={locations}
-        onDescChange={handleDescriptionChange}
-        descriptions={descriptions}
-        onSubmitLoading={submitLoading}
-        sortJobs={sortJobsLowToHigh}
-      />
-      <div className={`${styles.jobContainer} ${styles.contain}`}>
-        <SalaryResults
-          activeJob={activeJobItem}
-          handleSubmitLoading={handleSubmitLoading}
-          loading={loading}
-          // posVal={selectedPositionValue}
-          // locVal={selectedLocationValue}
-        />
-        <JobDetails
-          descriptions={descriptions}
-          activeIndex={activeIndex}
-          handleJobLevelSelect={handleJobLevelSelect}
-        />
-      </div>
+      {!loading && (
+        <>
+          <JobSelectForm
+            titles={titles}
+            locations={locations}
+            onDescChange={handleDescriptionChange}
+            descriptions={descriptions}
+            onSubmitLoading={submitLoading}
+            sortJobs={sortJobsLowToHigh}
+          />
+          <div className={`${styles.jobContainer} ${styles.contain}`}>
+            <SalaryResults
+              activeJob={activeJobItem}
+              handleSubmitLoading={handleSubmitLoading}
+              loading={loading}
+            />
+            <JobDetails
+              descriptions={descriptions}
+              activeIndex={activeIndex}
+              handleJobLevelSelect={handleJobLevelSelect}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../styles/main.module.scss';
-// import loadingStyles from '../styles/loading.module.scss';
 
 import { Descriptions } from '../interfaces/interfaces';
 
@@ -17,34 +16,12 @@ interface Props {
 }
 
 const JobDetails: React.FC<Props> = ({ descriptions, activeIndex, handleJobLevelSelect }) => {
-
-  // even out the flex items
-  let flexItemWidth;
-  let itemWidthStyle;
-
-  if (descriptions.length > 0) {
-    flexItemWidth = 100 / descriptions.length;
-  }
-
-  if (window.innerWidth >= 768) {
-    itemWidthStyle = {
-      flex: '0 0' + flexItemWidth + '%',
-      width: flexItemWidth + '%'
-    };
-  } else {
-    itemWidthStyle = {
-      flex: '0 0 auto'
-    };
-  }
-
-
   const jobDetailItems = descriptions.map((jobItem: { jobLevel: string; jobDescription: string }, index) => {
     return (
       <li
         key={jobItem.jobLevel}
-        className={`${activeIndex === index ? `${styles.active} ${styles.jobItem}` : `${styles.jobItem}`}`}
+        className={activeIndex === index ? styles.active : ''}
         onClick={() => handleJobLevelSelect(jobItem, index)}
-        style={itemWidthStyle}
       >
         <h3>{jobItem.jobLevel}</h3>
         <p>{jobItem.jobDescription}</p>

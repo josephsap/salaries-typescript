@@ -10,7 +10,8 @@ interface Props {
 
 const PositionSelect: React.FC<Props> = ({ titles, onPositionChange, selectedPositionValue }) => {
   
-  const makePositionSelectOptions = titles.map((title: { id: string; slug: string; jobTitle: string }) => {
+  // don't need to do this, typescript will infer types. 
+  const makePositionSelectOptions = titles.map((title) => {
     return (
       <option key={title.id} value={title.slug}>{title.jobTitle}</option>
     );
